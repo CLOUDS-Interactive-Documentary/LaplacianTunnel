@@ -1,4 +1,4 @@
-# Empty Visual System 
+#CLOUDS Visual Systems
 
 Welcome to the CLOUDS Interactive Documentary CodeStorm! We'll be creating Visual Systems, modular visual sketches used that are used along with the pointcloud interviews to illustrate the concepts presented in the film.
 
@@ -43,33 +43,10 @@ Next you need to rename the project to the name of your sketch,
 		$ git remote add origin git@github.com:CLOUDS-Interactive-Documentary/MyVisualSystem.git 
 		$ git push -u origin master
 
-### Modify ofMaterial & ofLight
+### Modify ofMaterial
 
 To Run you'll need to modify two things in the oF Core
 
-In libs/openFrameworks/gl/ofLight.h add reference `&` and remove `const` keyword
-
-		ofFloatColor& getAmbientColor();
-		ofFloatColor& getDiffuseColor();
-		ofFloatColor& getSpecularColor();
-
-In libs/openFrameworks/gl/ofLight.cpp as well
-
-		//----------------------------------------
-		ofFloatColor& ofLight::getAmbientColor() {
-			return ambientColor;
-		}
-		
-		//----------------------------------------
-		ofFloatColor& ofLight::getDiffuseColor() {
-			return diffuseColor;
-		}
-		
-		//----------------------------------------
-		ofFloatColor& ofLight::getSpecularColor() {
-			return specularColor;
-		}
-		
 In libs/openFrameworks/gl/ofMaterial.h add reference `&` to the material colors
 
 		ofFloatColor& getDiffuseColor();
