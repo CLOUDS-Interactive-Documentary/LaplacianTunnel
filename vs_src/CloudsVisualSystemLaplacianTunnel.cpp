@@ -1,8 +1,8 @@
 //
-//  CloudsVisualSystemEmpty.cpp
+//  CloudsVisualSystemLaplacianTunnel.cpp
 //
 
-#include "CloudsVisualSystemEmpty.h"
+#include "CloudsVisualSystemLaplacianTunnel.h"
 #include "CloudsRGBDVideoPlayer.h"
 
 //#include "CloudsRGBDVideoPlayer.h"
@@ -11,7 +11,7 @@
 //#endif
 
 //These methods let us add custom GUI parameters and respond to their events
-void CloudsVisualSystemEmpty::selfSetupGui(){
+void CloudsVisualSystemLaplacianTunnel::selfSetupGui(){
 
 	customGui = new ofxUISuperCanvas("CUSTOM", gui);
 	customGui->copyCanvasStyle(gui);
@@ -24,38 +24,38 @@ void CloudsVisualSystemEmpty::selfSetupGui(){
 	customGui->addButton("Custom Button", false);
 	customGui->addToggle("Custom Toggle", &customToggle);
 	
-	ofAddListener(customGui->newGUIEvent, this, &CloudsVisualSystemEmpty::selfGuiEvent);
+	ofAddListener(customGui->newGUIEvent, this, &CloudsVisualSystemLaplacianTunnel::selfGuiEvent);
 	guis.push_back(customGui);
 	guimap[customGui->getName()] = customGui;
 }
 
-void CloudsVisualSystemEmpty::selfGuiEvent(ofxUIEventArgs &e){
+void CloudsVisualSystemLaplacianTunnel::selfGuiEvent(ofxUIEventArgs &e){
 	if(e.widget->getName() == "Custom Button"){
 		cout << "Button pressed!" << endl;
 	}
 }
 
 //Use system gui for global or logical settings, for exmpl
-void CloudsVisualSystemEmpty::selfSetupSystemGui(){
+void CloudsVisualSystemLaplacianTunnel::selfSetupSystemGui(){
 	
 }
 
-void CloudsVisualSystemEmpty::guiSystemEvent(ofxUIEventArgs &e){
+void CloudsVisualSystemLaplacianTunnel::guiSystemEvent(ofxUIEventArgs &e){
 	
 }
 //use render gui for display settings, like changing colors
-void CloudsVisualSystemEmpty::selfSetupRenderGui(){
+void CloudsVisualSystemLaplacianTunnel::selfSetupRenderGui(){
 
 }
 
-void CloudsVisualSystemEmpty::guiRenderEvent(ofxUIEventArgs &e){
+void CloudsVisualSystemLaplacianTunnel::guiRenderEvent(ofxUIEventArgs &e){
 	
 }
 
 // selfSetup is called when the visual system is first instantiated
 // This will be called during a "loading" screen, so any big images or
 // geometry should be loaded here
-void CloudsVisualSystemEmpty::selfSetup(){
+void CloudsVisualSystemLaplacianTunnel::selfSetup(){
 	
 	videoLoaded = false;
 	
@@ -83,31 +83,31 @@ void CloudsVisualSystemEmpty::selfSetup(){
 // selfPresetLoaded is called whenever a new preset is triggered
 // it'll be called right before selfBegin() and you may wish to
 // refresh anything that a preset may offset, such as stored colors or particles
-void CloudsVisualSystemEmpty::selfPresetLoaded(string presetPath){
+void CloudsVisualSystemLaplacianTunnel::selfPresetLoaded(string presetPath){
 	
 }
 
 // selfBegin is called when the system is ready to be shown
 // this is a good time to prepare for transitions
 // but try to keep it light weight as to not cause stuttering
-void CloudsVisualSystemEmpty::selfBegin(){
+void CloudsVisualSystemLaplacianTunnel::selfBegin(){
 	
 }
 
 //do things like ofRotate/ofTranslate here
 //any type of transformation that doesn't have to do with the camera
-void CloudsVisualSystemEmpty::selfSceneTransformation(){
+void CloudsVisualSystemLaplacianTunnel::selfSceneTransformation(){
 	
 }
 
 //normal update call
-void CloudsVisualSystemEmpty::selfUpdate(){
+void CloudsVisualSystemLaplacianTunnel::selfUpdate(){
 
 }
 
 // selfDraw draws in 3D using the default ofEasyCamera
 // you can change the camera by returning getCameraRef()
-void CloudsVisualSystemEmpty::selfDraw(){
+void CloudsVisualSystemLaplacianTunnel::selfDraw(){
 	
 	if(videoLoaded){
 		ofPushMatrix();
@@ -122,11 +122,11 @@ void CloudsVisualSystemEmpty::selfDraw(){
 }
 
 // draw any debug stuff here
-void CloudsVisualSystemEmpty::selfDrawDebug(){
+void CloudsVisualSystemLaplacianTunnel::selfDrawDebug(){
 	
 }
 // or you can use selfDrawBackground to do 2D drawings that don't use the 3D camera
-void CloudsVisualSystemEmpty::selfDrawBackground(){
+void CloudsVisualSystemLaplacianTunnel::selfDrawBackground(){
 
 	//turn the background refresh off
 	//bClearBackground = false;
@@ -134,37 +134,37 @@ void CloudsVisualSystemEmpty::selfDrawBackground(){
 }
 // this is called when your system is no longer drawing.
 // Right after this selfUpdate() and selfDraw() won't be called any more
-void CloudsVisualSystemEmpty::selfEnd(){
+void CloudsVisualSystemLaplacianTunnel::selfEnd(){
 	
 	simplePointcloud.clear();
 	
 }
 // this is called when you should clear all the memory and delet anything you made in setup
-void CloudsVisualSystemEmpty::selfExit(){
+void CloudsVisualSystemLaplacianTunnel::selfExit(){
 	
 }
 
 //events are called when the system is active
 //Feel free to make things interactive for you, and for the user!
-void CloudsVisualSystemEmpty::selfKeyPressed(ofKeyEventArgs & args){
+void CloudsVisualSystemLaplacianTunnel::selfKeyPressed(ofKeyEventArgs & args){
 	
 }
-void CloudsVisualSystemEmpty::selfKeyReleased(ofKeyEventArgs & args){
-	
-}
-
-void CloudsVisualSystemEmpty::selfMouseDragged(ofMouseEventArgs& data){
+void CloudsVisualSystemLaplacianTunnel::selfKeyReleased(ofKeyEventArgs & args){
 	
 }
 
-void CloudsVisualSystemEmpty::selfMouseMoved(ofMouseEventArgs& data){
+void CloudsVisualSystemLaplacianTunnel::selfMouseDragged(ofMouseEventArgs& data){
 	
 }
 
-void CloudsVisualSystemEmpty::selfMousePressed(ofMouseEventArgs& data){
+void CloudsVisualSystemLaplacianTunnel::selfMouseMoved(ofMouseEventArgs& data){
 	
 }
 
-void CloudsVisualSystemEmpty::selfMouseReleased(ofMouseEventArgs& data){
+void CloudsVisualSystemLaplacianTunnel::selfMousePressed(ofMouseEventArgs& data){
+	
+}
+
+void CloudsVisualSystemLaplacianTunnel::selfMouseReleased(ofMouseEventArgs& data){
 	
 }
