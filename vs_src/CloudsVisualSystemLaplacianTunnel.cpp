@@ -84,7 +84,23 @@ void CloudsVisualSystemLaplacianTunnel::guiRenderEvent(ofxUIEventArgs &e){
 void CloudsVisualSystemLaplacianTunnel::selfSetup(){
 	frameCount = 0;
 	fps = 15;
+	
+	ofDirectory objs(getVisualSystemDataPath() + "Meshes/");
+	objs.allowExt("vbo");
 
+	objs.listDir();
+	objs.sort();
+	
+	clear();
+	
+	int numFiles = objs.numFiles();
+	vbos.resize( numFiles );
+	indexCount.resize( numFiles );
+	for(int i = 0; i < numFiles; i++){
+		vbos[i] = new ofVbo();
+		indexCount[i] = loadMesh(*vbos[i], objs.getPath( i ) );
+	}
+	
 }
 
 // selfPresetLoaded is called whenever a new preset is triggered
@@ -101,20 +117,7 @@ void CloudsVisualSystemLaplacianTunnel::selfBegin(){
 	
 	cout << "*** BEGIN!" << endl;
 	
-	ofDirectory objs(getVisualSystemDataPath() + "_meshes/");
-	objs.allowExt("vbo");
-	objs.listDir();
-	
-	clear();
-	
-	int numFiles = objs.numFiles();
-	vbos.resize( numFiles );
-	indexCount.resize( numFiles );
-	for(int i = 0; i < numFiles; i++){
-		vbos[i] = new ofVbo();
-		indexCount[i] = loadMesh(*vbos[i], objs.getPath( i ) );
-	}
-	
+
 	startTime = ofGetElapsedTimef();
 }
 
