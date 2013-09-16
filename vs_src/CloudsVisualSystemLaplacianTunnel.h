@@ -84,33 +84,29 @@ class CloudsVisualSystemLaplacianTunnel : public CloudsVisualSystem {
     void selfMousePressed(ofMouseEventArgs& data);
     void selfMouseReleased(ofMouseEventArgs& data);
 	
-
     // if you use a custom camera to fly through the scene
 	// you must implement this method for the transitions to work properly
 //	ofCamera& getCameraRef(){
 //		return myCustomCamera;
 //	}
 
-	//
-	ofCamera& getCameraRef(){
-		if(videoLoaded){
-			return cloudsCamera;
-		}
-		return CloudsVisualSystem::getCameraRef();
-	}
 
-protected:
+  protected:
     
     //  Your Stuff
     //
 	
 	ofxUISuperCanvas* customGui;
-	bool customToggle;
-	float customFloat1;
-	float customFloat2;
+	int frameCount;
+	float startTime;
+	float fps;
 	
-	bool videoLoaded;
-	ofImage someImage;
-	ofShader pointcloudShader;
-	ofVboMesh simplePointcloud;
+	float numReplications;
+	float replicationOffset;
+	
+	vector<int> indexCount;
+	vector<ofVbo*> vbos;
+	
+	void clear();
+	
 };
