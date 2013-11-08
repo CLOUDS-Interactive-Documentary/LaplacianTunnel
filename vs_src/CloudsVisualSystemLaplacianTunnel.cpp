@@ -152,7 +152,6 @@ void CloudsVisualSystemLaplacianTunnel::selfUpdate(){
 	tunnelCam.dolly(-cameraSpeed);
 	headlight.setPointLight();
 	headlight.setPosition(tunnelCam.getPosition() + ofVec3f(0,lightDistance,0));
-
 }
 
 // selfDraw draws in 3D using the default ofEasyCamera
@@ -175,28 +174,47 @@ void CloudsVisualSystemLaplacianTunnel::selfDraw(){
 		GLfloat fogColor[4] = {bgColor.r/255.,bgColor.g/255.,bgColor.b/255., 1.0 };
 		glFogfv (GL_FOG_COLOR, fogColor);
 		glEnable(GL_DEPTH_TEST);
+		//glDisable(GL_DEPTH_TEST);
+		
 		ofEnableAlphaBlending();
 
 		int vboIndex = int( (ofGetElapsedTimef() - startTime) * fps) % vbos.size() ;
 		
 		headlight.enable();
 		float spread = (max.y - min.y);
-		float startY = tunnelCam.getPosition().y - fmod(tunnelCam.getPosition().y, spread);
+		float startY = min.y + tunnelCam.getPosition().y - fmod(tunnelCam.getPosition().y, spread);
+		
 		mat->begin();
 //		ofSphere(tunnelCam.getPosition(), 20);
-		ofPushMatrix();
-		
-		float translateAmount = startY-spread;
-		ofTranslate(0,translateAmount,0);
+//		numReplications = 1;
+//		ofTranslate(0,translateAmount,0);
+
 		for(int i = 0; i < numReplications; i++){
-			ofTranslate(0,spread,0);
+			ofPushMatrix();
+			glPointSize(2);
+			float translateAmount = (startY + i*spread);
+			ofTranslate(0,translateAmount,0);
 			ofTranslate(center);
 			ofRotate(translateAmount*corkscrewFactor,0,1,0);
 			ofTranslate(-center);
-			vbos[vboIndex].vbo->drawElements(GL_TRIANGLES, vbos[ ( vboIndex - (i * 10 ) + vbos.size() ) % vbos.size() ].indexCount);
-			translateAmount += spread;
+			
+//			cout << "translating " << translateAmount << " camera is currently at " << tunnelCam.getPosition().y << endl;
+			
+			float cameraoffset = tunnelCam.getPosition().y - translateAmount - spread;
+			int index = int(ofMap(cameraoffset, 0, -spread*numReplications, 1.0, 0.0, true) * (vbos.size()-1));
+
+//			if(i == 0){
+//				ofSetColor(0);
+//				vbos[index].vbo->drawElements(GL_TRIANGLES, vbos[index].indexCount);
+//			}
+			ofSetColor(255);
+			//vbos[index].vbo->drawElements(GL_TRIANGLES, vbos[index].indexCount);
+			//vbos[index].vbo->draw(GL_TRIANGLES, 0, vbos[index].indexCount);
+			vbos[index].vbo->draw(GL_POINTS, 0, vbos[index].indexCount);
+			
+			ofPopMatrix();
 		}
-		ofPopMatrix();
+
 		
 		mat->end();
 		headlight.disable();
